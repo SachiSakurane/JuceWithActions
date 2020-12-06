@@ -17,15 +17,18 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
       - name: Build
         run: |
-          cmake -B ${BUILD_DIRECTORY}
-          cmake --build ${BUILD_DIRECTORY} --target AudioPluginExample_All
+          cmake -B ${BUILD_DIRECTORY} -G Ninja -DCMAKE_BUILD_TYPE=Release
+          ninja -C ${BUILD_DIRECTORY} AudioPluginExample_All -j 4
 
       - name: Packaging
         run: |
           chmod 755 bin/packaging.sh
-          ./bin/packaging.sh osx "${BUILD_DIRECTORY}/AudioPlugin/AudioPluginExample_artefacts/Debug" "AudioPluginExample"
+          ./bin/packaging.sh osx "${BUILD_DIRECTORY}/AudioPlugin/AudioPluginExample_artefacts/Release" "AudioPluginExample"
 
       - name: Release
         uses: softprops/action-gh-release@master
