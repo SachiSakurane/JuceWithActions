@@ -26,7 +26,7 @@ jobs:
       - name: Packaging
         run: |
           chmod 755 bin/packaging.sh
-          ./bin/packaging.sh osx "${BUILD_DIRECTORY}/${PRODUCT_NAME}_artefacts/Release" "${PRODUCT_NAME}"
+          ./bin/packaging.sh osx "${BUILD_DIRECTORY}/AudioPlugin/${PRODUCT_NAME}_artefacts/Debug" "${PRODUCT_NAME}"
 
       - name: Release
         uses: softprops/action-gh-release@master
