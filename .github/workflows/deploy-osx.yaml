@@ -9,7 +9,6 @@ on:
 jobs:
   deploy-osx:
     env:
-      PRODUCT_NAME: AudioPluginExample
       BUILD_DIRECTORY: cmake-build
     runs-on: macOS-latest
     steps:
@@ -21,12 +20,12 @@ jobs:
       - name: Build
         run: |
           cmake -B ${BUILD_DIRECTORY}
-          cmake --build ${BUILD_DIRECTORY} --target ${PRODUCT_NAME}_All
+          cmake --build ${BUILD_DIRECTORY} --target AudioPluginExample_All
 
       - name: Packaging
         run: |
           chmod 755 bin/packaging.sh
-          ./bin/packaging.sh osx "${BUILD_DIRECTORY}/AudioPlugin/${PRODUCT_NAME}_artefacts/Debug" "${PRODUCT_NAME}"
+          ./bin/packaging.sh osx "${BUILD_DIRECTORY}/AudioPlugin/AudioPluginExample_artefacts/Debug" "AudioPluginExample"
 
       - name: Release
         uses: softprops/action-gh-release@master
