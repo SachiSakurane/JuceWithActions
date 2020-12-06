@@ -9,7 +9,7 @@ on:
 jobs:
   deploy-osx:
     env:
-      REPOSITORY_NAME: JuceWithActions
+      PRODUCT_NAME: AudioPluginExample
       BUILD_DIRECTORY: cmake-build
     runs-on: macOS-latest
     steps:
@@ -21,12 +21,12 @@ jobs:
       - name: Build
         run: |
           cmake -B ${BUILD_DIRECTORY}
-          cmake --build ${BUILD_DIRECTORY} --target ${JuceWithActions}_All
+          cmake --build ${BUILD_DIRECTORY} --target ${PRODUCT_NAME}_All
 
       - name: Packaging
         run: |
           chmod 755 bin/packaging.sh
-          ./bin/packaging.sh osx "${BUILD_DIRECTORY}/${REPOSITORY_NAME}_artefacts/Release" "${REPOSITORY_NAME}"
+          ./bin/packaging.sh osx "${BUILD_DIRECTORY}/${PRODUCT_NAME}_artefacts/Release" "${PRODUCT_NAME}"
 
       - name: Release
         uses: softprops/action-gh-release@master
